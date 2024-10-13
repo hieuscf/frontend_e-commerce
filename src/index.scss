@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap');//"Fredoka", sans-serif
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap');//"Tajawal", sans-serif
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');//Roboto
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  font-size: 16px;
+  text-decoration: none;
+}
+
+body {    
+    color: #000;
+    overflow-y: scroll;
+    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, Trebuchet MS, Roboto, Ubuntu, sans-serif;
+    background-color: #fff;
+}
+
+a {
+  text-decoration: none;
+}
