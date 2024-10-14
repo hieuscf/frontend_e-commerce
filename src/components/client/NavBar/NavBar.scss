@@ -1,0 +1,225 @@
+$primary-color: #007bff;
+$secondary-color: #828282; // Màu chữ mới
+$background-color: #fff;
+$border-color: #e8e8e8;
+$badge-color: #e74c3c;
+$icon-bg-color: #f0f0f0;
+$calendar-bg-color: #3b82f6;
+$hover-darkness: -5%; // Mức độ tối màu khi hover
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $background-color;
+  padding: 10px 20px;
+  border-bottom: 1px solid $border-color;
+  width: 96%;
+  margin: 0 20px;
+
+  .navbar-left,
+  .navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .logo {
+    font-family: "Brush Script MT", cursive;
+    font-size: 24px;
+    margin-right: 20px;
+    color: $primary-color;
+  }
+
+  .menu-icon {
+    font-size: 24px;
+    margin-right: 20px;
+    cursor: pointer;
+    color: $primary-color;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: $primary-color;
+    }
+  }
+
+  .nav-item {
+    margin-right: 20px;
+    position: relative;
+    cursor: pointer;
+    color: $secondary-color; // Áp dụng màu chữ mới
+    transition: color 0.3s ease;
+
+    i {
+      margin-left: 5px;
+      margin-top: 5px; // Tăng khoảng cách giữa chữ và icon
+    }
+
+    &:hover {
+      color: $primary-color;
+    }
+
+    .badge {
+      background-color: $badge-color;
+      color: #888;
+      border-radius: 50%;
+      padding: 2px 6px;
+      font-size: 12px;
+      position: absolute;
+      top: -5px;
+      right: -10px;
+    }
+  }
+
+  .icon {
+    font-size: 18px;
+    background-color: $icon-bg-color;
+    border-radius: 50%;
+    padding: 10px;
+    margin-right: 10px;
+    cursor: pointer;
+    color: $primary-color; // Áp dụng màu chữ mới
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: adjust-color(
+        $icon-bg-color,
+        $lightness: $hover-darkness
+      );
+    }
+
+    .badge {
+      background-color: $badge-color;
+      color: #fff;
+      border-radius: 50%;
+      padding: 2px 6px;
+      font-size: 12px;
+      position: absolute;
+      top: -5px;
+      right: -5px;
+    }
+  }
+
+  .profile {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: $secondary-color; // Áp dụng màu chữ mới
+
+    img {
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
+    }
+
+    .name {
+      font-size: 14px;
+      margin-right: 5px;
+    }
+
+    .role {
+      font-size: 12px;
+      color: $secondary-color; // Áp dụng màu chữ mới
+    }
+  }
+  .calendar-icon {
+    font-size: 24px; // Thay đổi kích thước biểu tượng
+    color: $secondary-color; // Sử dụng biến màu thứ cấp
+    cursor: pointer;
+
+    
+
+    i {
+      margin-left: 5px; // Nếu cần khoảng cách giữa các icon khác
+    }
+
+    &:hover {
+      background-color: adjust-color(
+        $calendar-bg-color,
+        $lightness: $hover-darkness
+      );
+    }
+  }
+}
+
+.search-box {
+  position: relative;
+  margin-top: 10px;
+
+  .input-search {
+    height: 15px;
+    width: 15px;
+    border: none;
+    padding: 10px;
+    font-size: 18px;
+    letter-spacing: 2px;
+    outline: none;
+    border-radius: 25px;
+    transition: width 0.5s ease-in-out, border-radius 0.5s;
+    padding-right: 40px;
+    color: $primary-color; // Áp dụng màu chữ mới
+
+    &::placeholder {
+      color: $secondary-color; // Áp dụng màu chữ mới cho placeholder
+      font-size: 14px;
+      font-weight: 100;
+    }
+
+    &:focus {
+      width: 300px;
+      border-radius: 0;
+      background-color: transparent;
+      border-bottom: 1px solid $secondary-color;
+    }
+  }
+
+  .btn-search {
+    width: 40px;
+    height: 40px;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 50%;
+    position: absolute;
+    right: -2px;
+    top: -12px;
+    color: $secondary-color;
+    background-color: transparent;
+
+    &:focus ~ .input-search {
+      width: 300px;
+      border-radius: 0;
+      border-bottom: 1px solid $secondary-color;
+      border: none;
+    }
+  }
+}
+
+.suggestions-box {
+  position: absolute;
+  background-color: $background-color;
+  border: 1px solid $border-color;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1000;
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    padding: 10px;
+    cursor: pointer;
+    color: $secondary-color; // Áp dụng màu chữ mới
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: $primary-color;
+      color: white;
+    }
+  }
+}
