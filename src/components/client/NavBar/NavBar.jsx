@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import "./NavBar.scss"; // Đảm bảo rằng bạn có file CSS tương ứng
+import "./NavBar.scss";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
@@ -48,8 +48,13 @@ const NavBar = () => {
     }
   }, [searchValue]);
 
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      console.log("Search: ", searchValue);
+    }
+  };
+
   return (
-    // Đảm bảo bạn trả về JSX
     <div className="navbar">
       <div className="navbar-left">
         <div className="menu-icon">
@@ -66,42 +71,47 @@ const NavBar = () => {
             placeholder="Type to Search..."
             value={searchValue}
             onChange={handleInputChange}
+            onKeyDown={handleKeyDown}
             ref={inputRef}
           />
+          {suggestions.length > 0 && (
+            <ul className="suggestions-list">
+              {suggestions.map((suggestion, index) => (
+                <li key={index} className="suggestion-item">
+                  {suggestion.name}
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       </div>
       <div className="bar-navigation">
         <Link to="/product" className="nav-item">
-          Product
+          Sản phẩm
           <i className="fas fa-caret-down"></i>
         </Link>
-        <Link to="/trademar" className="nav-item">
-          Trademar
+        <Link to="/trademark" className="nav-item">
+          Thương hiệu
           <i className="fas fa-caret-down"></i>
         </Link>
-        <Link to="/" className="nav-item">
-          Gift-Cart
+        <Link to="/gift-cart" className="nav-item">
+          Dịch vụ
           <i className="fas fa-caret-down"></i>
         </Link>
-        <Link to="/" className="nav-item">
-          Sell
+        <Link to="/sell" className="nav-item">
+          Kênh bán hàng
           <i className="fas fa-caret-down"></i>
         </Link>
       </div>
       <div className="navbar-right">
-        <div className="icon">
+        <div className="icon nav-first">
           <i className="fas fa-th"></i>
         </div>
-        <div className="icon">
-          <img
-            alt="German flag"
-            height="20"
-            src="https://storage.googleapis.com/a1aa/image/8kdnQfez0PmJaE2bE8elP8BSXjufTqYe1ll3qyrembU0FUn5E.jpg"
-            width="20"
-          />
-        </div>
-        <div className="icon">
+        <div className="icon nav-second">
           <i className="fas fa-chart-line"></i>
+        </div>
+        <div className="icon nav-third">
+          <i className="fas fa-shopping-cart"></i>
         </div>
         <div className="profile">
           <img
@@ -112,12 +122,8 @@ const NavBar = () => {
           />
           <div>
             <div className="name">Alina Mcloud</div>
-            <div className="role">VP People Manager</div>
+            <div className="role">0 $</div>
           </div>
-          <i className="fas fa-caret-down"></i>
-        </div>
-        <div className="calendar-icon">
-          <i className="fa-solid fa-cart-shopping"></i>
         </div>
       </div>
     </div>

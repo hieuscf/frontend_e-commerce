@@ -3,8 +3,10 @@ import { Link } from "react-router-dom";
 import "./TopBar.scss";
 
 
+
 const TopBar = () => {
-  
+  const authStatus = null;
+  const logout = false;
 
   return (
     <div className="top-bar-section">
@@ -31,16 +33,24 @@ const TopBar = () => {
           </Link>
           <Link to="/contact" className="nav-links">
             <i className="fas fa-phone"></i>
-            <span>Liên hệ</span>
+            <span>Hỗ Trợ Khách Hàng</span>
           </Link>
-          <Link to="/about" className="nav-links">
-            <i className="fas fa-info-circle"></i>
-            <span>Giới thiệu</span>
-          </Link>
-          <Link to="/profile" className="nav-links">
-            <i className="fas fa-book"></i>
-            <span>Hồ sơ năng lực</span>
-          </Link>
+          {authStatus === null ? (
+            <>
+              <Link to="/login" className="nav-links">
+                {/* <i className="fas fa-info-circle"></i> */}
+                <span>Đăng Nhập</span>
+              </Link>
+              <Link to="/signup" className="nav-links">
+                {/* <i className="fas fa-book"></i> */}
+                <span>Đăng Ký</span>
+              </Link>
+            </>
+          ) : (
+            <button onClick={logout} className="nav-links">
+              Đăng Xuất
+            </button>
+          )}
         </div>
       </div>
     </div>

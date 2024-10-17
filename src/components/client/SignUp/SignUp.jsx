@@ -6,14 +6,13 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const SignUp = () => {
-
   const navigate = useNavigate();
-
   const [data, setData] = useState({
-    fullName: "",
+    fullname: "",
     email: "",
     password: "",
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   const onChangeHandler = (event) => {
     const name = event.target.name;
@@ -24,29 +23,54 @@ const SignUp = () => {
   const notifySuccess = (message) => toast.success(message);
   const notifyError = (message) => toast.error(message);
 
+  const validateEmail = (email) => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(String(email).toLowerCase());
+  };
+
+  const validatePassword = (password) => {
+    return password.length >= 6;
+  };
+
   const handleSignup = async (e) => {
     e.preventDefault();
 
+    // Validate phía client
+    if (!validateEmail(data.email)) {
+      notifyError("Email không hợp lệ");
+      return;
+    }
+
+    if (!validatePassword(data.password)) {
+      notifyError("Mật khẩu phải có ít nhất 6 ký tự");
+      return;
+    }
+
+    setIsLoading(true);
     try {
       const response = await axios.post(
         "http://localhost:4000/api/auth/signup",
         {
-          fullName: data.fullName,
+          fullname: data.fullname,
           email: data.email,
           password: data.password,
         }
       );
 
-      // Kiểm tra phản hồi từ backend và hiển thị thông báo
       if (response.data.success) {
         notifySuccess(response.data.message);
-        navigate("/client/login"); // Chuyển hướng đến trang đăng nhập
+
+        
+        setTimeout(() => {
+          navigate("/login");
+        }, 2000); 
       } else {
-        notifyError(response.data.message); // Thông báo lỗi từ server
+        notifyError(response.data.message);
       }
     } catch (error) {
-      console.error("Error during signup:", error);
-      notifyError("Đã xảy ra lỗi trong quá trình đăng ký."); // Lỗi từ client
+      notifyError("Đã xảy ra lỗi trong quá trình đăng ký.");
+    } finally {
+      setIsLoading(false); // Tắt trạng thái loading
     }
   };
 
@@ -54,7 +78,7 @@ const SignUp = () => {
     <div className="signup" id="signup">
       <div className="form-wrapper">
         <div className="form-signup-container">
-          <form action="post" className="form-sign-up" onSubmit={handleSignup}>
+          <form className="form-sign-up" onSubmit={handleSignup}>
             <h1 className="sign-in-title">Đăng ký</h1>
             <div className="social-container">
               <a href="#" className="social">
@@ -73,9 +97,9 @@ const SignUp = () => {
             <input
               className="input-sign-up"
               type="text"
-              name="fullName"
+              name="fullname"
               placeholder="Full Name"
-              value={data.fullName}
+              value={data.fullname}
               onChange={onChangeHandler}
               required
             />
@@ -97,8 +121,12 @@ const SignUp = () => {
               onChange={onChangeHandler}
               required
             />
-            <button className="button-sign-up" type="submit">
-              Đăng ký
+            <button
+              className="button-sign-up"
+              type="submit"
+              disabled={isLoading}
+            >
+              {isLoading ? "Đang xử lý..." : "Đăng ký"}
             </button>
           </form>
         </div>
@@ -106,14 +134,16 @@ const SignUp = () => {
         <div className="overlay-container">
           <div className="overlay">
             <div className="overlay-panel overlay-left">
-              <Link to="/client">
-                <h1 className="sign-in-title sign-up-navigation">Chào mừng !</h1>
+              <Link to="/home">
+                <h1 className="sign-in-title sign-up-navigation">
+                  Chào mừng !
+                </h1>
               </Link>
               <p>
                 để giữ kết nối với chúng tôi vui lòng đăng nhập với thông tin cá
                 nhân của bạn
               </p>
-              <Link to="/client/login">
+              <Link to="/login">
                 <button className="ghost button-sign-up" id="signin">
                   Đăng nhập
                 </button>
